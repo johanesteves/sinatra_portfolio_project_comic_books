@@ -1,0 +1,26 @@
+<h3>Create a new Author</h3>
+
+<form action="/authors" method="post">
+
+  Name: <input type="text" name = "author_name" id ="author_name" placeholder="Full name..." required autofocus>
+
+  <br><br> <b>Assign a new Issue?</b> <br>
+
+  <input type="number" name = "issue[issue_number]" id ="issue_number" placeholder="Issue #" min = "0" max ="100000">
+  <input type="text" name = "issue[title]" id ="issue_title" placeholder="Title...">
+  <input type="text" name = "issue[cover_date]" id ="cover_date" placeholder="Cover Date...">
+
+  <br><br> <b>Comicbook</b> <br>
+
+  <select name="comicbook" size="1">
+  <option value="" disabled selected>Select a comicbook</option>
+  <%Comicbook.all.each do |comicbook| %>
+  <option value = "<%=comicbook.name%>" id = "<%=comicbook.id%>" name = "comicbook_title"> <%=comicbook.name%>/option>
+  <% end %>
+
+</select>
+  &nbsp;or&nbsp;
+  <input type="text" name = "comicbook_title" id ="comicbook_title" placeholder="New comicbook"> <br><br>
+  <input type="submit" value="Create!">
+
+</form>
