@@ -5,8 +5,6 @@ class CreateIssues < ActiveRecord::Migration[5.1]
       t.integer :issue_number
       t.integer :cover_date
       t.integer :comicbook_id
-      t.integer :author_id
-
     end
   end
 end

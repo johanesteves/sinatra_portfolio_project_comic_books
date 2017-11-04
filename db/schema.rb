@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20171104165615) do
     t.integer "issue_number"
     t.integer "cover_date"
     t.integer "comicbook_id"
-    t.integer "author_id"
   end
 
 end
