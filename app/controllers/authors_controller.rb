@@ -33,9 +33,9 @@ class AuthorsController < ApplicationController
 
   patch '/authors/:id' do
     @author = Author.find_by_id(params[:id])
+    @author.update(params[:author])
 
-
-
+    redirect "/authors/#{@author.id}"
   end
 
   get '/authors/:id' do

@@ -6,18 +6,21 @@
 
   <br><br> <b>Add a new Issue?</b> <br>
 
+  <br> <div style="padding-bottom: 5px;"> Comicbook:&nbsp;&nbsp;
+
+  <input list="comicbooks" name="comicbook_title" placeholder="New or Existing" size="25"  autocomplete="off">
+  <datalist id="comicbooks">
+    <%Comicbook.all.each do |comicbook| %>
+        <option value = "<%=comicbook.title%>" id = "<%=comicbook.id%>" name = "comicbook_title">  </option>
+    <% end %>
+  </datalist>
+</div>
+
+   Issue Details:
+
   <input type="number" name = "issue[issue_number]" id ="issue_number" placeholder="Issue #" min = "0" max ="100000">
   <input type="text" name = "issue[title]" id ="issue_title" placeholder="Title...">
   <input type="text" name = "issue[cover_date]" id ="cover_date" placeholder="Cover Date...">
-
-  <br><br> <b>Comicbook</b> <br>
-
-  <input list="comicbooks" name="comicbook_title" placeholder="New or Select Comicbook" size="35"  autocomplete="off">
-  <datalist id="comicbooks">
-  <%Comicbook.all.each do |comicbook| %>
-  <option value = "<%=comicbook.title%>" id = "<%=comicbook.id%>" name = "comicbook_title">  </option>
-  <% end %>
-  </datalist>
 
   <!--&nbsp;or&nbsp;
   <input type="text" name = "new_comicbook_title" id ="comicbook_title" placeholder="New comicbook">--> <br><br>
