@@ -22,10 +22,20 @@ class AuthorsController < ApplicationController
       new_author.comicbooks << comicbook
     end
 
-    binding.pry
-
     new_author.save
     redirect "/authors/#{new_author.id}"
+  end
+
+  get '/authors/:id/edit' do
+    @author = Author.find_by_id(params[:id])
+    erb :'authors/edit'
+  end
+
+  patch '/authors/:id' do
+    @author = Author.find_by_id(params[:id])
+
+
+
   end
 
   get '/authors/:id' do

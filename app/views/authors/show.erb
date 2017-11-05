@@ -1,12 +1,13 @@
 <h3><%=@author.name%></h3>
 <ul>
 <% @author.comicbooks.each do |comicbook| %>
-    <li><%=comicbook.title%></li>
-    <ul>
+    <li><%=comicbook.title%> (<%=comicbook.issues.count%>)</li>
+
+    <!--<ul>
       <%comicbook.issues.each do |issue| %>
         <li><%=issue.title%></li>
         <% end %>
-    </ul>
+    </ul> -->
 <% end %>
 
 </ul>
