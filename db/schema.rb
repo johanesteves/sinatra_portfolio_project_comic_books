@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104165615) do
+ActiveRecord::Schema.define(version: 20171105181254) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
+    t.integer "user_id"
   end
 
   create_table "comicbooks", force: :cascade do |t|
     t.string "title"
     t.integer "author_id"
+    t.integer "user_id"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -26,6 +28,13 @@ ActiveRecord::Schema.define(version: 20171104165615) do
     t.integer "issue_number"
     t.integer "cover_date"
     t.integer "comicbook_id"
+    t.integer "user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
   end
 
 end
