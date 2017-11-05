@@ -1,3 +1,4 @@
+
 class ApplicationController < Sinatra::Base
 
   #set :views, Proc.new { File.join(root, "../views/") }
@@ -18,6 +19,10 @@ class ApplicationController < Sinatra::Base
 
     def logged_in?
       !!session[:user_id]
+    end
+
+    def current_user
+      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
     end
 
   end

@@ -1,22 +1,28 @@
 class AuthorsController < ApplicationController
+  use Rack::Flash
 
   get '/authors' do
     @authors = Author.all
-
     erb :'authors/index'
   end
 
   get '/authors/new' do
-    erb :'authors/new'
+    if logged_in?
+      erb :'authors/new'
+    else
+      flash[:message] = "You must be logged in to access this page"
+      redirect '/login'
+    end
   end
 
   post '/authors' do
-    new_author = Author.new(name: params[:author_name])
+    new_author = Author.new(name: params[:author_name], user: current_user)
 
     if !params[:issue].values.all? {|i| i.empty?} && !params[:comicbook_title].empty?
-      new_issue = Issue.create(title: params[:issue][:title], issue_number: params[:issue][:issue_number].to_i, cover_date: params[:issue][:cover_date].to_i)
+      new_issue = Issue.create(title: params[:issue][:title], issue_number: params[:issue][:issue_number].to_i, cover_date: params[:issue][:cover_date].to_i, user: current_user)
 
-      comicbook = Comicbook.find_or_create_by(title: params[:comicbook_title]) << new_issue
+      comicbook = Comicbook.find_by(title: params[:comicbook_title]) ||  Comicbook.create(title: params[:comicbook_title], user: current_user)
+      comicbook.issues << new_issue
       comicbook.save
 
       new_author.comicbooks << comicbook
@@ -27,8 +33,13 @@ class AuthorsController < ApplicationController
   end
 
   get '/authors/:id/edit' do
-    @author = Author.find_by_id(params[:id])
-    erb :'authors/edit'
+    if current_user.authors.find_by(id: params[:id])
+      @author = Author.find_by_id(params[:id])
+      erb :'authors/edit'
+    else
+      redirect "/authors/#{params[:id]}"
+    end
+
   end
 
   patch '/authors/:id' do
@@ -39,7 +50,12 @@ class AuthorsController < ApplicationController
   end
 
   get '/authors/:id' do
-    @author = Author.find_by_id(params[:id])
-    erb :'authors/show'
+
+    if @author = Author.find_by_id(params[:id])
+      erb :'authors/show'
+    else
+      redirect '/authors'
+    end
+
   end
 end
