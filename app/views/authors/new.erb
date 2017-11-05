@@ -1,10 +1,10 @@
-<h3>Create a new Author</h3>
+<h3 xmlns="http://www.w3.org/1999/html">Create a new Author</h3>
 
 <form action="/authors" method="post">
 
   Name: <input type="text" name = "author_name" id ="author_name" placeholder="Full name..." required autofocus>
 
-  <br><br> <b>Assign a new Issue?</b> <br>
+  <br><br> <b>Add a new Issue?</b> <br>
 
   <input type="number" name = "issue[issue_number]" id ="issue_number" placeholder="Issue #" min = "0" max ="100000">
   <input type="text" name = "issue[title]" id ="issue_title" placeholder="Title...">
@@ -12,15 +12,15 @@
 
   <br><br> <b>Comicbook</b> <br>
 
-  <select name="comicbook" size="1">
-  <option value="" disabled selected>Select a comicbook</option>
+  <input list="comicbooks" name="comicbook_title" placeholder="New or Select Comicbook" size="35"  autocomplete="off">
+  <datalist id="comicbooks">
   <%Comicbook.all.each do |comicbook| %>
-  <option value = "<%=comicbook.name%>" id = "<%=comicbook.id%>" name = "comicbook_title"> <%=comicbook.name%>/option>
+  <option value = "<%=comicbook.title%>" id = "<%=comicbook.id%>" name = "comicbook_title">  </option>
   <% end %>
+  </datalist>
 
-</select>
-  &nbsp;or&nbsp;
-  <input type="text" name = "comicbook_title" id ="comicbook_title" placeholder="New comicbook"> <br><br>
-  <input type="submit" value="Create!">
+  <!--&nbsp;or&nbsp;
+  <input type="text" name = "new_comicbook_title" id ="comicbook_title" placeholder="New comicbook">--> <br><br>
+  <input type="submit" value="Create">
 
 </form>
