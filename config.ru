@@ -8,4 +8,5 @@ end
  use AuthorsController
  use ComicbooksController
  use IssuesController
+ use UsersController
  run ApplicationController
