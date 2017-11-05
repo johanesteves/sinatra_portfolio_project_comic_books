@@ -27,4 +27,9 @@ class AuthorsController < ApplicationController
     new_author.save
     redirect "/authors/#{new_author.id}"
   end
+
+  get '/authors/:id' do
+    @author = Author.find_by_id(params[:id])
+    erb :'authors/show'
+  end
 end
