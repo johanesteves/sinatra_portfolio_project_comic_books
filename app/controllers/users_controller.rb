@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       redirect '/authors'
     else
       flash[:message] = "Signup unsucessful"
-      redirect to "/login"
+      redirect "/login"
     end
   end
 

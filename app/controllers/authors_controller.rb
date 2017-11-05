@@ -10,8 +10,7 @@ class AuthorsController < ApplicationController
     if logged_in?
       erb :'authors/new'
     else
-      flash[:message] = "You must be logged in to access this page"
-      redirect '/login'
+      no_access
     end
   end
 
@@ -50,7 +49,6 @@ class AuthorsController < ApplicationController
   end
 
   get '/authors/:id' do
-
     if @author = Author.find_by_id(params[:id])
       erb :'authors/show'
     else

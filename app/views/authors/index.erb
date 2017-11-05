@@ -1,9 +1,14 @@
 <h1>Here are the list of all our Authors</h1>
 
+<%if logged_in? %>
+    <a href="/authors/new"><input type="button" value="New Author"></a>
+<% end %>
+
 <ul>
 
   <%@authors.each do |author| %>
-    <li> <%=author.name%></li>
+      <li> <a href="/authors/<%=author.id%>"> <%=author.name%> </a></li>
   <% end %>
+<br><br>
 
 </ul>
