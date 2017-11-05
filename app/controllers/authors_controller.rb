@@ -48,6 +48,13 @@ class AuthorsController < ApplicationController
     redirect "/authors/#{@author.id}"
   end
 
+  delete '/authors/:id/delete' do
+    author = Author.find_by_id(params[:id])
+    author.delete if current_user.authors.find_by(id: params[:id])
+
+    redirect '/authors'
+  end
+
   get '/authors/:id' do
     if @author = Author.find_by_id(params[:id])
       erb :'authors/show'

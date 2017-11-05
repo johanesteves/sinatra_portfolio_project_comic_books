@@ -5,3 +5,8 @@
   Name: <input type="text" name = "author[name]" id ="author_name" value="<%=@author.name%>" >
   <br><br> <input type="submit" value = "Update">
 </form>
+
+<form action="/authors/<%=@author.id%>/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" name="delete" id ="delete" value = "Delete">
+</form>
