@@ -1,5 +1,4 @@
 class ComicbooksController < ApplicationController
-  use Rack::Flash
 
   get '/comicbooks' do
     @comicbooks = Comicbook.all
@@ -15,14 +14,14 @@ class ComicbooksController < ApplicationController
   end
 
   post '/comicbooks' do
-    new_comicbook = Comicbook.new(title: params[:comicbook_title], user: current_user)
+    new_comicbook = Comicbook.new(title: params[:comicbook_title].strip, user: current_user)
 
     if !params[:issue].values.all? {|i| i.empty?}
-      new_issue = Issue.create(title: params[:issue][:title], issue_number: params[:issue][:issue_number].to_i, cover_date: params[:issue][:cover_date].to_i, user: current_user)
+      new_issue = Issue.create(title: params[:issue][:title].strip, issue_number: params[:issue][:issue_number].to_i, cover_date: params[:issue][:cover_date].to_i, user: current_user)
       new_comicbook.issues << new_issue
     end
 
-    author = Author.find_by(name: params[:author_name]) ||  Author.create(name: params[:author_name], user: current_user)
+    author = Author.find_by(name: params[:author_name].strip) ||  Author.create(name: params[:author_name].strip, user: current_user)
     author.comicbooks << new_comicbook
     author.save
 
@@ -53,17 +52,17 @@ class ComicbooksController < ApplicationController
     @comicbook = Comicbook.find_by_id(params[:id])
     @comicbook.update(title: params[:comicbook][:title])
 
-    author = Author.find_by(name: params[:comicbook][:author]) ||  Author.create(name: params[:comicbook][:author], user: current_user)
+    author = Author.find_by(name: params[:comicbook][:author].strip) ||  Author.create(name: params[:comicbook][:author].strip, user: current_user)
     author.comicbooks << @comicbook
     author.save
-
+    flash[:success] = "Comicbook Updated"
     redirect "/comicbooks/#{@comicbook.id}"
   end
 
   delete '/comicbooks/:id/delete' do
     comicbook = Comicbook.find_by_id(params[:id])
     comicbook.delete if current_user.comicbooks.find_by(id: params[:id])
-
+    flash[:success] = "Comicbook Deleted"
     redirect '/comicbooks'
   end
 
@@ -74,13 +73,10 @@ class ComicbooksController < ApplicationController
       if !filename.empty?
         @filename = filename.first.split("/")[-1]
       end
-
       erb :'comicbooks/show'
     else
       redirect '/comicbooks'
     end
   end
-
-
 end
 

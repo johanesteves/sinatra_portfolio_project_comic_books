@@ -2,25 +2,52 @@
 
 <h3>Editing <%=@comicbook.title%></h3>
 
-<form action="/comicbooks/<%=@comicbook.id%>" method="post">
+<form action="/comicbooks/<%=@comicbook.id%>" method="post" id="update">
   <input id="hidden" type="hidden" name="_method" value="patch">
   Name: <input type="text" name = "comicbook[title]" id ="comicbook_title" value="<%=@comicbook.title%>" >
 
 
   <div style="padding-bottom: 3px; padding-top: 7px"> Author:&nbsp;&nbsp;
 
-    <input list="authors" name="comicbook[author]" value="<%=@comicbook.author.name if @comicbook.author%> " size="25"  autocomplete="off" required>
+    <input list="authors" name="comicbook[author]" value="<%=@comicbook.author.name if @comicbook.author%>" size="25"  autocomplete="off" required>
     <datalist id="authors" >
       <%Author.all.each do |author| %>
           <option value = "<%=author.name%>" id = "<%=author.id%>" name = "comicbook[author]"  >  </option>
       <% end %>
     </datalist>
   </div>
-
-  <br> <input type="submit" value = "Update">
 </form>
+
+<br>
 
 <form action="/comicbooks/<%=@comicbook.id%>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" name="delete" id ="delete" value = "Delete">
+
+  <div class="container">
+    <input type="submit" value = "Update" class="btn btn-primary btn-md" form="update">
+    <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModal">&nbsp;Delete&nbsp;</button>
+
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+          <div class="modal-body">
+            <a href="#" class="close" aria-label="close" data-dismiss="modal"> &times;</a>
+            <p>Are you sure you want to delete </p>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-danger" name="delete" id ="delete" value = "Delete">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
 </form>

@@ -1,11 +1,11 @@
 <div class="page-header">
-<h2>All Authors</h2>
-</div>
+  <h2 class =text-left>Authors
 
-<%if logged_in? %>
-    <a href="/authors/new"><input type="button" value="New Author"></a>
-<% end %>
-<br><br>
+    <%if logged_in? %>
+        <a href="/authors/new"><input type="button" value="Add Author" class="btn btn-danger btn-sm pull-right"  ></a>
+    <% end %>
+  </h2>
+</div>
 
 <div class="list-group">
   <%@authors.each do |author| %>

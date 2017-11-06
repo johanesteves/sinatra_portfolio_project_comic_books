@@ -1,5 +1,4 @@
 class IssuesController < ApplicationController
-  use Rack::Flash
 
   get '/issues' do
     @issues = Issue.all
