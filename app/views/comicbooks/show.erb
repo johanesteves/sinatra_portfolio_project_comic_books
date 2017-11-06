@@ -1,21 +1,21 @@
 <a href="/comicbooks">View All</a> <br><br>
 
 <% if @filename.blank? %>
-    <img src="/nocover.jpg" height="261" width="168">
+    <img src="/nocover.jpg" height="400" width="260" align="left" hspace=10px>
 <%else%>
-    <img src="/<%=@filename%>" alt="<%=@comicbook.title%>" height="261" width="168">
+    <img src="/<%=@filename%>" alt="<%=@comicbook.title%>" height="400" width="260" align="left" hspace=10px>
 <%end%>
 
-<h3><%=@comicbook.title%> <%= "by " + @comicbook.author.name if @comicbook.author%> </h3><i> Submitted by <%=current_user && current_user.comicbooks.find_by_id(@comicbook.id) ? "you" : @comicbook.user.username%></i>
-<br>
+<h3><%=@comicbook.title%> <%= "by " + @comicbook.author.name if @comicbook.author%> </h3>
 
 <% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
     <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit"></a>
 <% end %>
 
-<ul>
+<br><br> <b>Issues</b>
+<ul style="list-style: none;">
 <% @comicbook.issues.each do |issue| %>
-    <li><a href="/issues/<%=issue.id%>"><%=issue.title%></a></li>
+    <li><a href="/issues/<%=issue.id%>" style="text-decoration:none"><%=issue.title%></a></li>
 <% end %>
 
 </ul>

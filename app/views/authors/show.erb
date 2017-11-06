@@ -4,6 +4,8 @@
     <a href="/authors/<%=@author.id%>/edit"><input type="button" value="Edit"></a>
 <% end %>
 
+
+<h4>Comicbooks</h4>
 <ul>
 <% @author.comicbooks.each do |comicbook| %>
     <li><a href="/comicbooks/<%=comicbook.id%>"><%=comicbook.title%> (<%=comicbook.issues.count%>)</a></li>

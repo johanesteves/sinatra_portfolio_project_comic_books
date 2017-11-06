@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   get '/login' do
     if logged_in?
-      redirect '/authors'
+      redirect '/comicbooks'
     else
       erb :'users/login'
     end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
     if user && user.authenticate(params[:user][:password])
       session[:user_id] = user.id
-      redirect '/authors'
+      redirect '/comicbooks'
     else
       user ? (flash[:message] = "Invalid Password") : (flash[:message] = "Username not found")
       redirect '/login'
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if logged_in?
-      redirect '/authors'
+      redirect '/comicbooks'
     else
       erb :'users/signup'
     end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
     if user.save
       session[:user_id] = user.id
-      redirect '/authors'
+      redirect '/comicbooks'
     else
       flash[:message] = "Signup unsucessful"
       redirect "/login"

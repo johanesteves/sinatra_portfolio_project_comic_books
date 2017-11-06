@@ -26,15 +26,15 @@ class ComicbooksController < ApplicationController
     author.comicbooks << new_comicbook
     author.save
 
-    # if params[:file]
-    #   @filename = params[:file][:filename]
-    #   file = params[:file][:tempfile]
-    #
-    #   File.open("./public/#{new_comicbook.id}-#{@filename}", 'wb') do |f|
-    #     f.write(file.read)
-    #   end
-    #
-    # end
+    if params[:file]
+      filename = params[:file][:filename]
+      file = params[:file][:tempfile]
+
+      File.open("./public/#{new_comicbook.id}-#{filename}", 'wb') do |f|
+        f.write(file.read)
+      end
+
+    end
 
     redirect "/comicbooks/#{new_comicbook.id}"
   end

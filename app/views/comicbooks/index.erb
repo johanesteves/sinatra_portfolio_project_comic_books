@@ -1,14 +1,42 @@
-<h1>Here are the list of all our Comicbooks</h1>
+<div class="navbar">
+  <a href="/authors" style="text-decoration:none">Authors</a>
+  <a href="/comicbooks" style="text-decoration:none">Comicbooks</a>
+  <a href="/issues" style="text-decoration:none">Issues</a>
+
+  <% if logged_in? %>
+    <a href="/logout" style="text-decoration:none">Logout</a>
+  <% else %>
+    <a href="/login" style="text-decoration:none">Login</a>
+  <% end %>
+</div>
+
+
+<h2>All Comicbooks</h2>
 
 <%if logged_in? %>
     <a href="/comicbooks/new"><input type="button" value="New Comicbook"></a>
 <% end %>
 
-<ul>
-
-  <%@comicbooks.each do |comicboook| %>
-      <li> <a href="/comicbooks/<%=comicboook.id%>"> <%=comicboook.title%> </a></li>
-  <% end %>
 <br><br>
+<table width="500" border="0" cellpadding="5">
 
-</ul>
+  <tr>
+    <%@comicbooks.each do |comicbook| %>
+      <td align="center" valign="center">
+        <a href="/comicbooks/<%=comicbook.id%>">
+        <% if filename = Dir["public/#{comicbook.id}*"].first %>
+            <img src="/<%=filename.split("/")[-1]%>" alt="<%=comicbook.title%>" height="261" width="168">
+
+        <% else %>
+            <img src="/nocover.jpg" height="261" width="168">
+        <%end%>
+        </a>
+      <br/>
+      <b><%=comicbook.title%></b><br>
+      <i><%= comicbook.author ? (comicbook.author.name) : "None"%></i>
+
+      </td>
+    <% end %>
+  </tr>
+
+</table>
