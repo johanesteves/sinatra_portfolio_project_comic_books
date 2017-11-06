@@ -1,0 +1,14 @@
+<h1>Here are the list of all our Comicbooks</h1>
+
+<%if logged_in? %>
+    <a href="/comicbooks/new"><input type="button" value="New Comicbook"></a>
+<% end %>
+
+<ul>
+
+  <%@comicbooks.each do |comicboook| %>
+      <li> <a href="/comicbooks/<%=comicboook.id%>"> <%=comicboook.title%> </a></li>
+  <% end %>
+<br><br>
+
+</ul>

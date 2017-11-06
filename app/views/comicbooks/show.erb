@@ -1,0 +1,12 @@
+<h3><%=@comicbook.title%> <%= "by " + @comicbook.author.name if @comicbook.author%> </h3><i> Submitted by <%=current_user.comicbooks.find_by_id(@comicbook.id) ? "you" : @comicbook.user.username%></i>
+
+<% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
+    <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit"></a>
+<% end %>
+
+<ul>
+<% @comicbook.issues.each do |issue| %>
+    <li><a href="/issues/<%=issue.id%>"><%=issue.title%></a></li>
+<% end %>
+
+</ul>
