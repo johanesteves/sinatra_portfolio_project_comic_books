@@ -26,6 +26,16 @@ class ComicbooksController < ApplicationController
     author.comicbooks << new_comicbook
     author.save
 
+    # if params[:file]
+    #   @filename = params[:file][:filename]
+    #   file = params[:file][:tempfile]
+    #
+    #   File.open("./public/#{new_comicbook.id}-#{@filename}", 'wb') do |f|
+    #     f.write(file.read)
+    #   end
+    #
+    # end
+
     redirect "/comicbooks/#{new_comicbook.id}"
   end
 
@@ -41,7 +51,10 @@ class ComicbooksController < ApplicationController
 
   patch '/comicbooks/:id' do
     @comicbook = Comicbook.find_by_id(params[:id])
-    @comicbook.update(params[:comicbook])
+
+    author = Author.find_by(name: params[:comicbook][:author]) ||  Author.create(name: params[:comicbook][:author], user: current_user)
+    author.comicbooks << @comicbook
+    author.save
 
     redirect "/comicbooks/#{@comicbook.id}"
   end
@@ -56,6 +69,11 @@ class ComicbooksController < ApplicationController
 
   get '/comicbooks/:id' do
     if @comicbook = Comicbook.find_by_id(params[:id])
+      filename = Dir["public/#{@comicbook.id}*.jpg"]
+      if !filename.empty?
+        @filename = filename.first.split("/")[-1]
+      end
+
       erb :'comicbooks/show'
     else
       redirect '/comicbooks'

@@ -1,4 +1,4 @@
-<a href="/comicbooks">View All</a>
+<a href="/comicbooks/<%=@comicbook.id%>">Back</a>
 
 <h3>Editing <%=@comicbook.title%></h3>
 
@@ -9,10 +9,10 @@
 
   <div style="padding-bottom: 3px; padding-top: 7px"> Author:&nbsp;&nbsp;
 
-    <input list="authors" name="author_name" value="<%=@comicbook.author.name if @comicbook.author%> " size="25"  autocomplete="off" required>
+    <input list="authors" name="comicbook[author]" value="<%=@comicbook.author.name if @comicbook.author%> " size="25"  autocomplete="off" required>
     <datalist id="authors" >
       <%Author.all.each do |author| %>
-          <option value = "<%=author.name%>" id = "<%=author.id%>" name = "author_name"  >  </option>
+          <option value = "<%=author.name%>" id = "<%=author.id%>" name = "comicbook[author]"  >  </option>
       <% end %>
     </datalist>
   </div>

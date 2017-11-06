@@ -1,4 +1,13 @@
-<h3><%=@comicbook.title%> <%= "by " + @comicbook.author.name if @comicbook.author%> </h3><i> Submitted by <%=current_user.comicbooks.find_by_id(@comicbook.id) ? "you" : @comicbook.user.username%></i>
+<a href="/comicbooks">View All</a> <br><br>
+
+<% if @filename.blank? %>
+    <img src="/nocover.jpg" height="261" width="168">
+<%else%>
+    <img src="/<%=@filename%>" alt="<%=@comicbook.title%>" height="261" width="168">
+<%end%>
+
+<h3><%=@comicbook.title%> <%= "by " + @comicbook.author.name if @comicbook.author%> </h3><i> Submitted by <%=current_user && current_user.comicbooks.find_by_id(@comicbook.id) ? "you" : @comicbook.user.username%></i>
+<br>
 
 <% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
     <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit"></a>

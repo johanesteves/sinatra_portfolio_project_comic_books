@@ -1,17 +1,19 @@
 <h3>Create a new Comicbook</h3>
 
-<form action="/comicbooks" method="post">
+<form action="/comicbooks" method="post" enctype='multipart/form-data'>
 
-  Title: <input type="text" name = "comicbook_title" id ="comicbook_title" placeholder="Title..." required autofocus>
+  Title: <input type="text" name = "comicbook_title" id ="comicbook_title" placeholder="Title..." required autofocus> <br>
 
-  <br> <div style="padding-bottom: 3px; padding-top: 7px"> Author:&nbsp;&nbsp;
+  <div style="padding-bottom: 3px; padding-top: 7px"> Author:&nbsp;&nbsp;
   <input list="authors" name="author_name" placeholder="New or Existing" size="25"  autocomplete="off" required>
   <datalist id="authors" >
     <%Author.all.each do |author| %>
         <option value = "<%=author.name%>" id = "<%=author.id%>" name = "author_name">  </option>
     <% end %>
   </datalist>
-</div>
+  </div>
+
+  Cover Image: <input type="file" name="file">
 
   <br> <b>Add a new Issue?</b> <br>
 
