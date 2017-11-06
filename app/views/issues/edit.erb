@@ -1,0 +1,26 @@
+<a href="/issuess/<%=@issues.id%>">Back</a>
+
+<h3>Editing <%=@issues.title%></h3>
+
+<form action="/comicbooks/<%=@comicbook.id%>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  Name: <input type="text" name = "comicbook[title]" id ="comicbook_title" value="<%=@comicbook.title%>" >
+
+
+  <div style="padding-bottom: 3px; padding-top: 7px"> Author:&nbsp;&nbsp;
+
+    <input list="authors" name="comicbook[author]" value="<%=@comicbook.author.name if @comicbook.author%> " size="25"  autocomplete="off" required>
+    <datalist id="authors" >
+      <%Author.all.each do |author| %>
+          <option value = "<%=author.name%>" id = "<%=author.id%>" name = "comicbook[author]"  >  </option>
+      <% end %>
+    </datalist>
+  </div>
+
+  <br> <input type="submit" value = "Update">
+</form>
+
+<form action="/comicbooks/<%=@comicbook.id%>/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" name="delete" id ="delete" value = "Delete">
+</form>

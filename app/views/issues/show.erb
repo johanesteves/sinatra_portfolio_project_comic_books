@@ -1,0 +1,16 @@
+<a href="/issues">View All</a> <br><br>
+
+<% if @filename.blank? %>
+    <img src="/nocover.jpg" height="400" width="260" align="left" hspace=10px>
+<%else%>
+    <img src="/<%=@filename%>" alt="<%=@issue.title%>" height="400" width="260" align="left" hspace=10px>
+<%end%>
+
+<h3><%=@issue.title%> </h3>
+
+<%='<b>'+ @issue.comicbook.title+'</b>' + " by " + @issue.comicbook.author.name if @issue.comicbook.author%><br>
+<i> Submitted by <%=current_user && current_user.issues.find_by_id(@issue.id) ? "you" : @issue.user.username%></i>
+
+<% if current_user && current_user.issues.find_by_id(@issue.id) %>
+    <a href="/issues/<%=@issue.id%>/edit"><input type="button" value="Edit"></a>
+<% end %>

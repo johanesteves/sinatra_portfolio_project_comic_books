@@ -6,7 +6,7 @@
     <img src="/<%=@filename%>" alt="<%=@comicbook.title%>" height="400" width="260" align="left" hspace=10px>
 <%end%>
 
-<h3><%=@comicbook.title%> <%= "by " + @comicbook.author.name if @comicbook.author%> </h3>
+<h3><%=@comicbook.title%> <%= "by " + @comicbook.author.name if @comicbook.author%> </h3><i> Submitted by <%=current_user && current_user.comicbooks.find_by_id(@comicbook.id) ? "you" : @comicbook.user.username%></i>
 
 <% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
     <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit"></a>

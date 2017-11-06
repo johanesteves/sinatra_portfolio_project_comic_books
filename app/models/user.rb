@@ -3,5 +3,5 @@ class User < ActiveRecord::Base
 
   has_many :authors
   has_many :comicbooks
-  has_many :users
+  has_many :issues
 end

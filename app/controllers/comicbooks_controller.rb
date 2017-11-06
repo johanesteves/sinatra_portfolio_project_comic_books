@@ -51,6 +51,7 @@ class ComicbooksController < ApplicationController
 
   patch '/comicbooks/:id' do
     @comicbook = Comicbook.find_by_id(params[:id])
+    @comicbook.update(title: params[:comicbook][:title])
 
     author = Author.find_by(name: params[:comicbook][:author]) ||  Author.create(name: params[:comicbook][:author], user: current_user)
     author.comicbooks << @comicbook

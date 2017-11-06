@@ -1,0 +1,42 @@
+<div class="navbar">
+  <a href="/authors" style="text-decoration:none">Authors</a>
+  <a href="/comicbooks" style="text-decoration:none">Comicbooks</a>
+  <a href="/issues" style="text-decoration:none">Issues</a>
+
+  <% if logged_in? %>
+    <a href="/logout" style="text-decoration:none">Logout</a>
+  <% else %>
+    <a href="/login" style="text-decoration:none">Login</a>
+  <% end %>
+</div>
+
+
+<h2>All Issues</h2>
+
+<%if logged_in? %>
+    <a href="/issues/new"><input type="button" value="New Issue"></a>
+<% end %>
+
+<br><br>
+<table width="500" border="0" cellpadding="5">
+
+  <tr>
+    <%@issues.each do |issue| %>
+      <td align="center" valign="center">
+        <a href="/issues/<%=issue.id%>">
+        <% if filename = Dir["public/#{issue.id}*"].first %>
+            <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" height="261" width="168">
+
+        <% else %>
+            <img src="/nocover.jpg" height="261" width="168">
+        <%end%>
+        </a>
+      <br/>
+      <b><%=issue.title%></b><br>
+      <i><%= issue.comicbook ? (issue.comicbook.author.name) : "None"%></i>
+
+      </td>
+    <% end %>
+  </tr>
+
+</table>
