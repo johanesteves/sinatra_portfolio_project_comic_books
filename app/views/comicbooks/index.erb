@@ -1,31 +1,27 @@
 <div class="page-header">
-<h2>All Comicbooks</h2>
-</div>
+<h2 class =text-left>Comicbooks
 
 <%if logged_in? %>
-    <a href="/comicbooks/new"><input type="button" value="New Comicbook"></a>
+    <a href="/comicbooks/new"><input type="button" value="Add Comicbook" class="btn btn-danger btn-sm pull-right"  ></a>
 <% end %>
+</h2>
+</div>
 
-<br><br>
-<table width="500" border="0" cellpadding="5">
-
-  <tr>
-    <%@comicbooks.each do |comicbook| %>
-      <td align="center" valign="center">
-        <a href="/comicbooks/<%=comicbook.id%>">
+<div class="container fluid" >
+<%@comicbooks.each do |comicbook| %>
+      <a href="/comicbooks/<%=comicbook.id%>">
+      <div class="col-sm-3">
         <% if filename = Dir["public/#{comicbook.id}*"].first %>
-            <img src="/<%=filename.split("/")[-1]%>" alt="<%=comicbook.title%>" height="261" width="168">
+            <img src="/<%=filename.split("/")[-1]%>" alt="<%=comicbook.title%>" height="280" width="180">
 
         <% else %>
-            <img src="/nocover.jpg" height="261" width="168">
+            <img src="/nocover.jpg" height="280" width="180">
         <%end%>
-        </a>
-      <br/>
-      <b><%=comicbook.title%></b><br>
-      <i><%= comicbook.author ? (comicbook.author.name) : "None"%></i>
 
-      </td>
-    <% end %>
-  </tr>
 
-</table>
+      <br><strong class = "text-info"><body class=" text-center"><%=comicbook.title%></body></strong><br>
+      <i class ="text-muted"><body class="text-center"><%= comicbook.author ? (comicbook.author.name) : "None"%></body></i>
+    </div>
+      </a>
+<% end %>
+</div>

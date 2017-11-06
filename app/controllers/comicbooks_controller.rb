@@ -70,7 +70,7 @@ class ComicbooksController < ApplicationController
 
   get '/comicbooks/:id' do
     if @comicbook = Comicbook.find_by_id(params[:id])
-      filename = Dir["public/#{@comicbook.id}*.jpg"]
+      filename = Dir["public/#{@comicbook.id}*"]
       if !filename.empty?
         @filename = filename.first.split("/")[-1]
       end
@@ -83,3 +83,4 @@ class ComicbooksController < ApplicationController
 
 
 end
+
