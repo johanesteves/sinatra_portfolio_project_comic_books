@@ -4,9 +4,9 @@
 
   Name: <input type="text" name = "author_name" id ="author_name" placeholder="Full name..." required autofocus>
 
-  <br><br> <b>Add a new Issue?</b> <br>
+  <br> <br><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#new_issue">Add a new Issue?</button>
 
-   <div style="padding-bottom: 3px; padding-top: 7px"> Comicbook:&nbsp;&nbsp;
+   <div style="padding-bottom: 3px; padding-top: 7px" id="new_issue" class="collapse"> Comicbook:&nbsp;&nbsp;
 
   <input list="comicbooks" name="comicbook_title" placeholder="New or Existing" size="25"  autocomplete="off">
   <datalist id="comicbooks">
@@ -14,7 +14,6 @@
         <option value = "<%=comicbook.title%>" id = "<%=comicbook.id%>" name = "comicbook_title">  </option>
     <% end %>
   </datalist>
-</div>
 
    Issue Details:
 
@@ -22,7 +21,6 @@
   <input type="text" name = "issue[title]" id ="issue_title" placeholder="Title...">
   <input type="text" name = "issue[cover_date]" id ="cover_date" placeholder="Cover Date...">
 
-  <!--&nbsp;or&nbsp;
-  <input type="text" name = "new_comicbook_title" id ="comicbook_title" placeholder="New comicbook">--> <br><br>
-  <input type="submit" value="Create">
+   </div>
+  <input type="submit" class="btn btn-danger" value="Create">
 </form>
