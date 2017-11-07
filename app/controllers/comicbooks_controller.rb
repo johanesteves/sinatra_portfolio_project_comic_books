@@ -55,14 +55,18 @@ class ComicbooksController < ApplicationController
     author = Author.find_by(name: params[:comicbook][:author].strip) ||  Author.create(name: params[:comicbook][:author].strip, user: current_user)
     author.comicbooks << @comicbook
     author.save
+
     flash[:success] = "Comicbook Updated"
     redirect "/comicbooks/#{@comicbook.id}"
   end
 
   delete '/comicbooks/:id/delete' do
     comicbook = Comicbook.find_by_id(params[:id])
+
+    issues_deleted = (comicbook.issues.any?) ? comicbook.issues.count {|i| i.delete} : 0
     comicbook.delete if current_user.comicbooks.find_by(id: params[:id])
-    flash[:success] = "Comicbook Deleted"
+
+    flash[:success] = "Comicbook deleted. Issues deleted: #{issues_deleted}"
     redirect '/comicbooks'
   end
 

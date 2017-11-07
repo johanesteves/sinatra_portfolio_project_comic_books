@@ -60,7 +60,7 @@
 
       <a href="/comicbooks/<%=cb.id%>">
           <% if filename = Dir["public/#{cb.id}*"].first %>
-              <img src="/<%=filename.split("/")[-1]%>" alt="<%=cb.title%>" height="200" width="120">
+              <img src="/<%=filename.split("/")[-1]%>" alt="<%=cb.title%>" height="200" width="120" border ="5">
 
           <% else %>
               <img src="/nocover.jpg" height="200" width="120">

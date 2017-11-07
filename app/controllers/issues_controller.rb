@@ -13,6 +13,30 @@ class IssuesController < ApplicationController
     end
   end
 
+  post '/issues' do
+    new_issue = Issue.new(params[:issue])
+    new_issue.user = current_user
+
+    comicbook = Comicbook.find_by(title: params[:comicbook_title].strip) ||  Comicbook.create(title: params[:comicbook_title].strip, user: current_user)
+    comicbook.issues << new_issue
+    comicbook.save
+
+    if params[:file]
+      filename = params[:file][:filename]
+      file = params[:file][:tempfile]
+
+      File.open("./public/#{new_issue.id}/-#{filename}", 'wb') do |f|
+        f.write(file.read)
+      end
+
+    end
+
+    redirect "/issues/#{new_issue.id}"
+  end
+
+
+
+
   get '/issues/:id/edit' do
     if current_user.issues.find_by(id: params[:id])
       @issue = Issue.find_by_id(params[:id])
@@ -20,27 +44,21 @@ class IssuesController < ApplicationController
     else
       redirect "/issues/#{params[:id]}"
     end
-
   end
-
 
   patch '/issues/:id' do
     @issue = Issue.find_by_id(params[:id])
     @issue.update(params[:issue])
 
-    comicbook = Comicbook.find_by(title: params[:comicbook][:title]) ||  Comicbook.create(name: params[:comicbook][:title], user: current_user)
-    comicbook.isssues << @issue
+    comicbook = Comicbook.find_by(title: params[:comicbook_title].strip) ||  Comicbook.create(title: params[:comicbook_title].strip, user: current_user)
+    comicbook.issues << @issue
     comicbook.save
-
-    author = Author.find_by(name: params[:comicbook][:author]) ||  Author.create(name: params[:comicbook][:author], user: current_user)
-    author.comicbooks << @comicbook
-    author.save
 
     redirect "/issues/#{@issue.id}"
   end
 
   delete '/issues/:id/delete' do
-    issue = Comicbook.find_by_id(params[:id])
+    issue = Issue.find_by_id(params[:id])
     issue.delete if current_user.issues.find_by(id: params[:id])
 
     redirect '/issues'

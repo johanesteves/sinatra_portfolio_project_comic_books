@@ -2,12 +2,12 @@
 
 <form action="/issues" method="post" enctype='multipart/form-data'>
   Issue #: <input type="number" name = "issue[issue_number]" id ="issue_number" placeholder="Issue #" min = "0" max ="100000">
-  Title: <input type="text" name = "issue[:title]" id ="issue[:title]" placeholder="Title..." required autofocus>
+  Title: <input type="text" name = "issue[title]" id ="issue[title]" placeholder="Title..." required autofocus>
   Cover Date: <input type="text" name = "issue[cover_date]" id ="cover_date" placeholder="Cover Date..."><br>
   <div style="padding-top: 7px"> Cover Image: <input type="file" name="file" accept=".jpg,.png"> </div><br>
 
   <div style="padding-bottom: 3px; padding-top: 7px"> <b>Comicbook:&nbsp;&nbsp;</b>
-    <input list="comicbooks" name="comicbooks_title" placeholder="New or Existing" size="25"  autocomplete="off" required>
+    <input list="comicbooks" name="comicbook_title" placeholder="New or Existing" size="25"  autocomplete="off" required>
     <datalist id="comicbooks" >
       <%Comicbook.all.each do |comicbook| %>
           <option value = "<%=comicbook.title%>" id = "<%=comicbook.id%>" name = "comicbook_title">  </option>
@@ -15,14 +15,6 @@
     </datalist>
   </div>
 
-  <div style="padding-bottom: 3px; padding-top: 7px"> <b>Author:&nbsp;&nbsp;</b>
-  <input list="authors" name="author_name" placeholder="New or Existing" size="25"  autocomplete="off" required>
-  <datalist id="authors" >
-    <%Author.all.each do |author| %>
-        <option value = "<%=author.name%>" id = "<%=author.id%>" name = "author_name">  </option>
-    <% end %>
-  </datalist>
-  </div>
 
    <br><input type="submit" value="Create">
 </form>
