@@ -4,53 +4,93 @@
   <title>Comicbooks</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+
+    body { padding-top: 70px; }
+  </style>
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a class="navbar-brand" href="/comicbooks"><img src="/logo_db.png" width="32px"></a>
     </div>
-    <ul class="nav navbar-nav">
-      <li> <a href="/">Home</a></li>
-      <li> <a href="/authors" style="text-decoration:none">Authors</a> </li>
-      <li> <a href="/comicbooks" style="text-decoration:none">Comicbooks</a></li>
-      <li> <a href="/issues" style="text-decoration:none">Issues</a></li>
-    </ul>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li> <a href="/">Home</a></li>
+        <li> <a href="/authors" style="text-decoration:none">Authors</a> </li>
+        <li> <a href="/comicbooks" style="text-decoration:none">Comicbooks</a></li>
+        <li> <a href="/issues" style="text-decoration:none">Issues</a></li>
+      </ul>
 
-    <ul class="nav navbar-nav navbar-right">
-      <% if !logged_in? %>
-        <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <ul class="nav navbar-nav navbar-right">
+        <% if !logged_in? %>
+          <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
-      <%else%>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%=current_user.username%>
-            <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        </li>
-      <%end%>
-    </ul>
-
+        <%else%>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%=current_user.username%>
+              <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </li>
+        <%end%>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<div class="container">
-  <% flash.keys.each do |type| %>
-      <div class="alert alert-<%= type %> fade in">
-        <%= flash[type] %>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <strong>Random Comicbook!    </strong> <br>
+
+      <% cb = Comicbook.all.sample %>
+
+      <a href="/comicbooks/<%=cb.id%>">
+          <% if filename = Dir["public/#{cb.id}*"].first %>
+              <img src="/<%=filename.split("/")[-1]%>" alt="<%=cb.title%>" height="200" width="120">
+
+          <% else %>
+              <img src="/nocover.jpg" height="200" width="120">
+          <%end%>
+
+      </a>
+
+    </div>
+    <div class="col-sm-8 text-left">
+
+      <% if !logged_in? %>
+        <div class="alert alert-info alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>You are not logged in. </strong> Please <a href="/signup" class="alert-link">sign up</a> or <a href="/signup" class="alert-link">login</a> to access the full features.
       </div>
-  <% end %>
+      <% else %>
+        <% flash.keys.each do |type| %>
+          <div class="alert alert-<%= type %> fade in">
+            <strong><%= flash[type] %> </strong>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+          </div>
+        <% end %>
+      <%end%>
 
-
-  <%= yield %>
-
+      <%= yield %>
+    </div>
+  </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
 </body>
 </html>
+
