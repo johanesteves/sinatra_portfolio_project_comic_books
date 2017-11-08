@@ -1,9 +1,32 @@
 <div class = "col-md-4 col-md-offset-4">
-  <h3>Login</h3>
-    <form action="/login" method="post">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Login</a></li>
+    <li><a data-toggle="tab" href="#signup">Signup</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <form action="/login" method="post">
+        <div class="form-group">
+          <br><label for="username">Username:</label>
+          <input type="text" class="form-control" id="user[username]" name = "user[username]" autocomplete="off" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" id="user[password]" name = "user[password]" autocomplete="off" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+    </div>
+    <div id="signup" class="tab-pane fade">
+      <form action="/signup" method="post">
       <div class="form-group">
-        <label for="username">Username:</label>
+        <br><label for="username">Username:</label>
         <input type="text" class="form-control" id="user[username]" name = "user[username]" autocomplete="off" placeholder="Username" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Email:</label>
+        <input type="email" class="form-control" id="user[email]" name = "user[email]" autocomplete="off" placeholder="Username" required>
       </div>
       <div class="form-group">
         <label for="pwd">Password:</label>
@@ -11,4 +34,6 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    </div>
+  </div>
 </div>

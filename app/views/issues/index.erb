@@ -1,32 +1,27 @@
 <div class="page-header">
-  <h2>All Issues</h2>
+  <h2 class =text-left>Issues
+
+    <%if logged_in? %>
+        <a href="/issues/new"><input type="button" value="Add" class="btn btn-danger btn-md pull-right"  ></a>
+    <% end %>
+  </h2>
 </div>
 
+<div class="container fluid" >
+  <%@issues.each do |issue| %>
+      <a href="/issues/<%=issue.id%>">
+        <div class="col-sm-3">
+          <% if filename = Dir["public/#{issue.id}*"].first %>
+              <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" height="280" width="180">
 
-<%if logged_in? %>
-    <a href="/issues/new"><input type="button" value="New Issue"></a>
-<% end %>
+          <% else %>
+              <img src="/nocover.jpg" height="280" width="180">
+          <%end%>
 
-<br><br>
-<table width="500" border="0" cellpadding="5">
 
-  <tr>
-    <%@issues.each do |issue| %>
-      <td align="center" valign="center">
-        <a href="/issues/<%=issue.id%>">
-        <% if filename = Dir["public/#{issue.id}*"].first %>
-            <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" height="261" width="168">
-
-        <% else %>
-            <img src="/nocover.jpg" height="261" width="168">
-        <%end%>
-        </a>
-      <br/>
-      <b><%=issue.title%></b><br>
-      <i><%= issue.comicbook ? (issue.comicbook.author.name) : "None"%></i>
-
-      </td>
-    <% end %>
-  </tr>
-
-</table>
+          <br><strong class = "text-info"><body class=" text-center"><%=issue.title%></body></strong><br>
+          <i class ="text-muted"><body class="text-center"><%= issue.comicbook ? (issue.comicbook.title) : "No comicbook assigned"%></body></i><br><br>
+        </div>
+      </a>
+  <% end %>
+</div>

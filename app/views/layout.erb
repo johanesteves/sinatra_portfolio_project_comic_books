@@ -10,6 +10,14 @@
   <style>
 
     body { padding-top: 70px; }
+
+    .sidenav {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      background-color: #f1f1f1;
+      height: auto;
+    }
+
   </style>
 </head>
 <body>
@@ -74,7 +82,7 @@
       <% if !logged_in? %>
         <div class="alert alert-info alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>You are not logged in. </strong> Please <a href="/signup" class="alert-link">sign up</a> or <a href="/signup" class="alert-link">login</a> to access the full features.
+        <strong>You are not logged in. </strong> Please <a href="/signup" class="alert-link">sign up</a> or <a href="/login" class="alert-link">login</a> to access the full features.
       </div>
       <% else %>
         <% flash.keys.each do |type| %>
@@ -84,8 +92,10 @@
           </div>
         <% end %>
       <%end%>
+      <div class="col-sm-12 text-left">
 
       <%= yield %>
+      </div>
     </div>
   </div>
 </div>

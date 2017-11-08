@@ -2,12 +2,12 @@
 <h2 class =text-left>Comicbooks
 
 <%if logged_in? %>
-    <a href="/comicbooks/new"><input type="button" value="Add Comicbook" class="btn btn-danger btn-sm pull-right"  ></a>
+    <a href="/comicbooks/new"><input type="button" value="Add" class="btn btn-danger btn-md pull-right"  ></a>
 <% end %>
 </h2>
 </div>
 
-<div class="container fluid" >
+<div class="container fluid col-md-12" >
 <%@comicbooks.each do |comicbook| %>
       <a href="/comicbooks/<%=comicbook.id%>">
       <div class="col-sm-3">

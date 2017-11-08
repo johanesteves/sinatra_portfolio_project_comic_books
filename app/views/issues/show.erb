@@ -8,7 +8,7 @@
 
 <h3><%=@issue.title%> </h3>
 
-<%='<b>'+ @issue.comicbook.title+'</b>' + " by " + @issue.comicbook.author.name if @issue.comicbook.author%><br>
+<%='<b>'+ @issue.comicbook.title+'</b>' + " by " + @issue.comicbook.author.name if @issue.comicbook%><br>
 <i> Submitted by <%=current_user && current_user.issues.find_by_id(@issue.id) ? "you" : @issue.user.username%></i>
 
 <% if current_user && current_user.issues.find_by_id(@issue.id) %>
