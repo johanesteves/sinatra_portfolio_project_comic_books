@@ -1,18 +1,19 @@
 <div class="page-header">
-  <h2 class =text-left>New Comicbook </h2>
+  <ul class="pager">
+    <li class = "previous"><a href="/comicbooks">Back</a> <h3 style="display: inline">Add Comicbook</h3></li>
+  </ul>
 </div>
-
-<form action="/comicbooks" method="post" class = "form-horizontal">
+<form action="/comicbooks" method="post" class = "form-horizontal" enctype='multipart/form-data'>
 <div class="form-group">
   <div class="form-group" >
-    <label for="Title" class="control-label col-sm-2">Title:</label>
-    <div class="col-sm-10">
+    <label for="Title" class="control-label col-sm-5"> Comicbook Title:</label>
+    <div class="col-sm-3">
       <input type="text"  class="form-control" name = "comicbook_title" id ="comicbook_title" placeholder="Title..." required autofocus>
     </div>
   </div>
   <div class="form-group">
-    <label for="author" class="control-label col-sm-2">Author:</label>
-    <div class = "col-sm-10">
+    <label for="author" class="control-label col-sm-5">Author:</label>
+    <div class = "col-sm-7">
       <input list="authors" name="author_name" placeholder="New or Existing" size="25"  autocomplete="off" required>
       <datalist id="authors" >
         <%Author.all.each do |author| %>
@@ -20,39 +21,43 @@
         <% end %>
       </datalist>
 
-      <button type= "button" data-toggle="collapse" class="btn btn-basic" data-target="#issue_form">Add Issue?</button>
+      &nbsp;<button type= "button" data-toggle="collapse" class="btn btn-default" data-target="#issue_form">Add Issue?</button>
     </div>
   </div>
 
   <div id = "issue_form" class = "collapse">
+    <div class="form-group">
+      <label for="issue_details" class="col-sm-10 col-sm-offset-5"><h4>Issue Details</h4></label>
+    </div>
+
     <div class="form-group" >
-      <label for="issue_number" class="control-label col-sm-2">Issue #:</label>
-      <div class = "col-sm-10">
+      <label for="issue_number" class="control-label col-sm-5">Issue #:</label>
+      <div class = "col-sm-2">
         <input type="number" class="form-control" name = "issue[issue_number]" id ="issue_number" placeholder="Issue #" min = "0" max ="100000">
       </div>
-
     </div>
+
     <div class="form-group">
-      <label for="issue_title" class="control-label col-sm-2">Title:</label>
-      <div class = "col-sm-10">
+      <label for="issue_title" class="control-label col-sm-5">Issue Title:</label>
+      <div class = "col-sm-3">
         <input type="text" class="form-control" name = "issue[title]" id ="issue_title" placeholder="Title...">
       </div>
     </div>
     <div class="form-group">
-      <label for="issue_cover_date" class="control-label col-sm-2">Cover Date:</label>
-      <div class = "col-sm-10">
+      <label for="issue_cover_date" class="control-label col-sm-5">Issue Cover Date:</label>
+      <div class = "col-sm-3">
         <input type="text" class="form-control" name = "issue[cover_date]" id ="cover_date" placeholder="Cover Date...">
       </div>
     </div>
     <div class="form-group">
-      <label for="upload" class="control-label col-sm-2">Cover Image:</label>
-      <div class = "col-sm-10">
+      <label for="upload" class="control-label col-sm-5">Issue Cover Image:</label>
+      <div class = "col-sm-3">
          <input type="file" id="file" class="custom-file-input">
       </div>
     </div>
   </div>
   <div class="form-group"> <!-- Submit Button -->
-    <div class="col-sm-10 col-sm-offset-2">
+    <div class="col-sm-10 col-sm-offset-5">
       <input type="submit" class="btn btn-primary" value="Submit">
     </div>
   </div>

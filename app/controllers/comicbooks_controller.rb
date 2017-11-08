@@ -15,25 +15,26 @@ class ComicbooksController < ApplicationController
 
   post '/comicbooks' do
     new_comicbook = Comicbook.new(title: params[:comicbook_title].strip, user: current_user)
+    binding.pry
 
-    if !params[:issue].values.all? {|i| i.empty?}
+    if params[:issue].values.all? {|i| !i.empty?}
       new_issue = Issue.create(title: params[:issue][:title].strip, issue_number: params[:issue][:issue_number].to_i, cover_date: params[:issue][:cover_date].to_i, user: current_user)
       new_comicbook.issues << new_issue
+
+      if params[:file]
+        filename = params[:file][:filename]
+        file = params[:file][:tempfile]
+
+        File.open("./public/#{new_issue.id}-#{filename}", 'wb') do |f|
+          f.write(file.read)
+        end
+
+      end
     end
 
     author = Author.find_by(name: params[:author_name].strip) ||  Author.create(name: params[:author_name].strip, user: current_user)
     author.comicbooks << new_comicbook
     author.save
-
-    if params[:file]
-      filename = params[:file][:filename]
-      file = params[:file][:tempfile]
-
-      File.open("./public/#{new_comicbook.id}-#{filename}", 'wb') do |f|
-        f.write(file.read)
-      end
-
-    end
 
     redirect "/comicbooks/#{new_comicbook.id}"
   end

@@ -1,37 +1,45 @@
-<div class="container">
+<div class="page-header">
   <ul class="pager">
-    <li class = "previous"><a href="/comicbooks/<%=@comicbook.id%>">Back</a></li>
+    <li class = "previous"><a href="/comicbooks/<%=@comicbook.id%>">Back</a> <h3 class = "text-left"style="display: inline">Editing <%=@comicbook.title%></h3></li>
   </ul>
-
-
-<h3>Editing <%=@comicbook.title%></h3>
-
-<form action="/comicbooks/<%=@comicbook.id%>" method="post" id="update">
-  <input id="hidden" type="hidden" name="_method" value="patch">
-  Name: <input type="text" name = "comicbook[title]" id ="comicbook_title" value="<%=@comicbook.title%>" >
-
-
-  <div style="padding-bottom: 3px; padding-top: 7px"> Author:&nbsp;&nbsp;
-
-    <input list="authors" name="comicbook[author]" value="<%=@comicbook.author.name if @comicbook.author%>" size="25"  autocomplete="off" required>
-    <datalist id="authors" >
-      <%Author.all.each do |author| %>
-          <option value = "<%=author.name%>" id = "<%=author.id%>" name = "comicbook[author]"  >  </option>
-      <% end %>
-    </datalist>
-  </div>
-</form>
-
 </div>
 
-<br>
+
+
+<form action="/comicbooks/<%=@comicbook.id%>" method="post" id="update" class = "form-horizontal">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+  <div class="form-group">
+      <label for="Title" class="control-label col-sm-5"> Comicbook Title:</label>
+      <div class="col-sm-3">
+        <input type="text"  class="form-control" name = "comicbook[title]" id ="comicbook_title" value="<%=@comicbook.title%>" required>
+      </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="author" class="control-label col-sm-5">Author:</label>
+    <div class = "col-sm-5">
+      <input list="authors" name="comicbook[author]" value="<%=@comicbook.author.name if @comicbook.author%>" size="25"  autocomplete="off" required>
+      <datalist id="authors" >
+        <%Author.all.each do |author| %>
+            <option value = "<%=author.name%>" id = "<%=author.id%>" name = "comicbook[author]"  >  </option>
+        <% end %>
+      </datalist>
+    </div>
+  </div>
+
+
+</form>
 
 <form action="/comicbooks/<%=@comicbook.id%>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
-
-  <div class="container">
-    <input type="submit" value = "Update" class="btn btn-primary btn-md" form="update">
-    <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModal">&nbsp;Delete&nbsp;</button>
+    <div class="form-group"> <!-- Submit Button -->
+      <div class="col-sm-10 col-sm-offset-5">
+        <input type="submit" value = "Update" class="btn btn-primary btn-md" form="update">
+        <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModal">&nbsp;Delete&nbsp;</button>
+      </div>
+    </div>
 
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog modal-sm">
@@ -50,11 +58,5 @@
 
       </div>
     </div>
-
-  </div>
-
-
-
-
 
 </form>
