@@ -7,21 +7,21 @@
 </h2>
 </div>
 
-<div class="container fluid col-md-12" >
+<div class="container fluid col-sm-12" >
 <%@comicbooks.each do |comicbook| %>
       <a href="/comicbooks/<%=comicbook.id%>">
-      <div class="col-sm-3">
-        <% if filename = Dir["public/#{comicbook.id}*"].first %>
-            <img src="/<%=filename.split("/")[-1]%>" alt="<%=comicbook.title%>" height="280" width="180">
-
-        <% else %>
-            <img src="/nocover.jpg" height="280" width="180">
-        <%end%>
-
-
-      <br><strong class = "text-info"><body class=" text-center"><%=comicbook.title%></body></strong><br>
-      <i class ="text-muted"><body class="text-center"><%= comicbook.author ? (comicbook.author.name) : "No author assigned"%></body></i><br><br>
-    </div>
-      </a>
+        <div class="col-sm-3">
+          <div class = "thumbnail">
+          <% if filename = Dir["public/#{comicbook.id}*"].first %>
+              <img src="/<%=filename.split("/")[-1]%>" alt="<%=comicbook.title%>"  style="height: 280px; width: 180px">
+          <% else %>
+              <img src="/nocover.jpg" style="height: 280px; width: 180px">
+          <%end%>
+            <p class="text-center"><strong class = "text-info text-center"><%=comicbook.title%></strong> <br>
+              <em class ="text-muted"><%= comicbook.author ? (comicbook.author.name) : "No author assigned"%></em>
+            </p>
+          </div>
+        </div>
+    </a>
 <% end %>
 </div>

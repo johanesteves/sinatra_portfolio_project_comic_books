@@ -6,20 +6,22 @@
 </h2>
 </div>
 
-<div class="container fluid col-md-12" >
+<div class="container fluid col-sm-12" >
   <%@issues.each do |issue| %>
       <a href="/issues/<%=issue.id%>">
         <div class="col-sm-3">
-          <% if filename = Dir["public/#{issue.id}*"].first %>
-              <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" height="280" width="180">
+          <div class="thumbnail">
+            <% if filename = Dir["public/#{issue.id}*"].first %>
+                <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" style="height: 280px; width: 180px">
+            <% else %>
+                <img src="/nocover.jpg" style="height: 280px; width: 180px">
+            <%end%>
 
-          <% else %>
-              <img src="/nocover.jpg" height="280" width="180">
-          <%end%>
+            <p class="text-center"><strong class = "text-info text-center"><%=issue.title%></strong><br>
+              <em class ="text-muted"><%= issue.comicbook ? (issue.comicbook.title) : "No comicbook assigned"%></em>
+            </p>
 
-
-          <br><strong class = "text-info"><body class=" text-center"><%=issue.title%></body></strong><br>
-          <i class ="text-muted"><body class="text-center"><%= issue.comicbook ? (issue.comicbook.title) : "No comicbook assigned"%></body></i><br><br>
+          </div>
         </div>
       </a>
   <% end %>
