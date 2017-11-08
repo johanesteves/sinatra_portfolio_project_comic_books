@@ -50,7 +50,6 @@ class AuthorsController < ApplicationController
     else
       redirect "/authors/#{params[:id]}"
     end
-
   end
 
   patch '/authors/:id' do
@@ -62,8 +61,19 @@ class AuthorsController < ApplicationController
 
   delete '/authors/:id/delete' do
     author = Author.find_by_id(params[:id])
+    issues_deleted = 0
+    comicbooks_deleted = 0
+
+    if author.comicbooks.any?
+      comicbooks_deleted = author.comicbooks.count do |comicbook|
+        issues_deleted = (comicbook.issues.any?) ? comicbook.issues.count {|i| i.delete} : 0
+        comicbook.delete
+      end
+    end
+
     author.delete if current_user.authors.find_by(id: params[:id])
 
+    flash[:success] = "Author deleted. Comicbooks deleted #{comicbooks_deleted}. Issues deleted: #{issues_deleted}"
     redirect '/authors'
   end
 

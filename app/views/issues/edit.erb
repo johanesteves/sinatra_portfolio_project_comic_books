@@ -1,27 +1,79 @@
-<a href="/issues/<%=@issue.id%>">Back</a>
+<div class="page-header">
+  <ul class="pager">
+    <li class = "previous"><a href="/issues/<%=@issue.id%>">Back</a> <h3 class = "text-left"style="display: inline"><small>Editing  </small><%=@issue.title%></h3></li>
+  </ul>
+</div>
 
-<h3>Editing <%=@issue.title%></h3>
 
-<form action="/issues/<%=@issue.id%>" method="post">
+
+<form action="/issues/<%=@issue.id%>" method="post" id="update" class = "form-horizontal">
   <input id="hidden" type="hidden" name="_method" value="patch">
-  Issue #: <input type="text" name = "issue[issue_number]" id ="issue_number" value="<%=@issue.issue_number%>" >
-  Title: <input type="text" name = "issue[title]" id ="issue_title" value="<%=@issue.title%>" >
-  Cover Date: <input type="text" name = "issue[cover_date]" id ="issue_title" value="<%=@issue.cover_date%>" >
 
-  <div style="padding-bottom: 3px; padding-top: 7px"> Comicbook:&nbsp;&nbsp;
-
-    <input list="comicbooks" name="comicbook_title" value="<%=@issue.comicbook.title if @issue.comicbook%>" size="25"  autocomplete="off" required>
-    <datalist id="comicbooks" >
-      <%Comicbook.all.each do |comicbook| %>
-          <option value = "<%=comicbook.title%>" id = "<%=comicbook.id%>" name = "comicbook_title"  >  </option>
-      <% end %>
-    </datalist>
+  <div class="form-group">
+    <label for="issue_number" class="control-label col-sm-5"> Issue Number:</label>
+    <div class="col-sm-2">
+      <input type="number"  class="form-control" name = "issue[issue_number]" id ="issue_number" value="<%=@issue.issue_number%>" required>
+    </div>
   </div>
 
-  <br> <input type="submit" value = "Update">
+  <div class="form-group">
+    <label for="issue_title" class="control-label col-sm-5"> Issue Title:</label>
+    <div class="col-sm-3">
+      <input type="text"  class="form-control" name = "issue[title]" id ="issue_title" value="<%=@issue.title%>" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="issue_cover_date" class="control-label col-sm-5"> Issue Cover Date:</label>
+    <div class="col-sm-3">
+      <input type="text"  class="form-control" name = "issue[cover_date]" id ="issue_title" value="<%=@issue.cover_date%>" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="issue_details" class="col-sm-10 col-sm-offset-5"><h4>Comicbook Details</h4></label>
+  </div>
+
+
+  <div class="form-group">
+    <label for="comicbook" class="control-label col-sm-5">Comicbook:</label>
+    <div class = "col-sm-5">
+      <input list="comicbooks" name="comicbook_title" value="<%=@issue.comicbook.title if @issue.comicbook%>" size="25"  autocomplete="off" required>
+      <datalist id="comicbooks" >
+        <%Comicbook.all.each do |comicbook| %>
+            <option value = "<%=comicbook.title%>" id = "<%=comicbook.id%>" name = "comicbook_title"  >  </option>
+        <% end %>
+      </datalist>
+    </div>
+  </div>
+
+
 </form>
 
 <form action="/issues/<%=@issue.id%>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" name="delete" id ="delete" value = "Delete">
+  <div class="form-group"> <!-- Submit Button -->
+    <div class="col-sm-10 col-sm-offset-5">
+      <input type="submit" value = "Update" class="btn btn-primary btn-md" form="update">
+      <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModal">&nbsp;Delete&nbsp;</button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+      <div class="modal-content">
+        <div class="modal-body">
+          <a href="#" class="close" aria-label="close" data-dismiss="modal"> &times;</a>
+          <body class="text-center"><strong>Are you sure you wish to delete? </strong></body><br>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-danger btn-block" name="delete" id ="delete" value = "Delete">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </form>

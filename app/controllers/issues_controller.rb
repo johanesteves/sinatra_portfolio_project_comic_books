@@ -50,6 +50,15 @@ class IssuesController < ApplicationController
     @issue = Issue.find_by_id(params[:id])
     @issue.update(params[:issue])
 
+    if params[:file]
+      filename = params[:file][:filename]
+      file = params[:file][:tempfile]
+
+      File.open("./public/#{new_issue.id}-#{filename}", 'wb') do |f|
+        f.write(file.read)
+      end
+    end
+
     comicbook = Comicbook.find_by(title: params[:comicbook_title].strip) ||  Comicbook.create(title: params[:comicbook_title].strip, user: current_user)
     comicbook.issues << @issue
     comicbook.save

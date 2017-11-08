@@ -1,13 +1,12 @@
 <div class="page-header">
-  <h2 class =text-left>Issues
-
-    <%if logged_in? %>
-        <a href="/issues/new"><input type="button" value="Add" class="btn btn-danger btn-md pull-right"  ></a>
-    <% end %>
-  </h2>
+<h2 class =text-left>Issues
+<%if logged_in? %>
+    <a href="/issues/new"><input type="button" value="Add" class="btn btn-danger btn-md pull-right"  ></a>
+<% end %>
+</h2>
 </div>
 
-<div class="container fluid" >
+<div class="container fluid col-md-12" >
   <%@issues.each do |issue| %>
       <a href="/issues/<%=issue.id%>">
         <div class="col-sm-3">

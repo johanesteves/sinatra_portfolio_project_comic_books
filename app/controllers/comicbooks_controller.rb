@@ -15,7 +15,6 @@ class ComicbooksController < ApplicationController
 
   post '/comicbooks' do
     new_comicbook = Comicbook.new(title: params[:comicbook_title].strip, user: current_user)
-    binding.pry
 
     if params[:issue].values.all? {|i| !i.empty?}
       new_issue = Issue.create(title: params[:issue][:title].strip, issue_number: params[:issue][:issue_number].to_i, cover_date: params[:issue][:cover_date].to_i, user: current_user)
