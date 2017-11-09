@@ -9,7 +9,7 @@ class AuthorsController < ApplicationController
     if logged_in?
       erb :'authors/new'
     else
-      no_access
+      redirect to "/login"
     end
   end
 
@@ -81,6 +81,7 @@ class AuthorsController < ApplicationController
     if @author = Author.find_by_id(params[:id])
       erb :'authors/show'
     else
+      flash[:warning] = "Author not found"
       redirect '/authors'
     end
 

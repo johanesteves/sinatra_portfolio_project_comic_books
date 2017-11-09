@@ -1,22 +1,47 @@
-<a href="/comicbooks">View All</a> <br><br>
+<div class="page-header">
+  <ul class="pager">
+  <div class = "previous" style="text-align: left">
+    <li>
+      <a href="/comicbooks">
+        Back
+      </a>
+    </li>
+    <h3 style="display: block;margin-top: -30px;margin-bottom: -20px" class = "text-center">
+      <%=@comicbook.title%> <small> >> <%=@comicbook.issues.size%> issue(s)</small><br>
+      <small>By <a href="/authors/<%=@comicbook.author.id if @comicbook.author %>"><%= @comicbook.author.name if @comicbook.author%></a></small><br>
+      <small><em>Submitted by <strong><%=(current_user && current_user.comicbooks.find_by_id(@comicbook.id)) ? "you" : @comicbook.user.username %></strong>
+      </em></small>
+      <% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
+          <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit" class = "btn btn-primary btn-xs"></a>
+      <% end %>
 
-<% if @filename.blank? %>
-    <img src="/nocover.jpg" height="400" width="260" align="left" hspace=10px>
-<%else%>
-    <img class="" src="/<%=@filename%>" alt="<%=@comicbook.title%>" height="400" width="260" align="left" hspace=10px>
-<%end%>
+    </h3>
 
-<h3><%=@comicbook.title%> <small class="text-muted"><%= "by " + @comicbook.author.name if @comicbook.author%> </small> </h3>
-<i>Submitted by <%=current_user && current_user.comicbooks.find_by_id(@comicbook.id) ? "you" : @comicbook.user.username%></i>
-
-<% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
-    <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit"></a>
-<% end %>
-
-<br><br> <b>Issues</b>
-<ul style="list-style: none;">
-<% @comicbook.issues.each do |issue| %>
-    <li><a href="/issues/<%=issue.id%>" style="text-decoration:none"><%=issue.title%></a></li>
-<% end %>
-
+  </div>
 </ul>
+</div>
+<span class = "text left">
+      <%if logged_in? %>
+          <a href="/issues/new"><input type="button" value="Add" class="btn btn-danger btn-md pull-right"  ></a>
+      <% end %>
+  </span> <br><br>
+<div class="container fluid col-sm-12" >
+
+  <%@comicbook.issues.each do |issue| %>
+      <a href="/issues/<%=issue.id%>">
+        <div class="col-sm-3">
+          <div class="thumbnail">
+            <% if filename = Dir["public/#{issue.id}*"].first %>
+                <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" style="height: 280px; width: 180px">
+            <% else %>
+                <img src="/nocover.jpg" style="height: 280px; width: 180px">
+            <%end%>
+
+            <p class="text-center"><strong class = "text-info text-center"><%=issue.title%></strong><br>
+              <em  class="text-muted"><%=issue.cover_date%></em>
+            </p>
+          </div>
+        </div>
+      </a>
+  <% end %>
+</div>

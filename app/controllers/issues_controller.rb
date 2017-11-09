@@ -9,7 +9,7 @@ class IssuesController < ApplicationController
     if logged_in?
       erb :'issues/new'
     else
-      no_access
+      redirect to "/login"
     end
   end
 
