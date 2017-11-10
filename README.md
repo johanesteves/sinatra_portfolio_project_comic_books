@@ -17,7 +17,7 @@ And then execute:
 
 ## Usage
 
-To start type in:
+To start:
 
     $ Copy the IP address that display into your browser 
 
