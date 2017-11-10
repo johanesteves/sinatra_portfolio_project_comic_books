@@ -73,15 +73,16 @@
     <div class="col-sm-2 sidenav">
       <strong>Random Issue!</strong> <br>
 
-      <% issue = Issue.all.sample %>
-      <a href="/issues/<%=issue.id%>">
-          <% if filename = Dir["public/#{issue.id}*"].first %>
-              <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" height="200" width="120" border ="5">
+      <% if issue = Issue.all.sample %>
+        <a href="/issues/<%=issue.id%>">
+            <% if filename = Dir["public/#{issue.id}*"].first %>
+                <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" height="200" width="120" border ="5">
 
-          <% else %>
-              <img src="/nocover.jpg" height="200" width="120">
-          <%end%>
-      </a>
+            <% else %>
+                <img src="/nocover.jpg" height="200" width="120">
+            <%end%>
+        </a>
+      <%end%>
     </div>
 
     <div class="col-sm-8 text-left">

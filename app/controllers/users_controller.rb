@@ -30,7 +30,6 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    binding
     if User.find_by_username(params[:user][:username])
       flash[:danger] = "This username already exists!"
       redirect '/signup'
