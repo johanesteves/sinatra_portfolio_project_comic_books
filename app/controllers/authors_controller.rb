@@ -21,7 +21,6 @@ class AuthorsController < ApplicationController
 
       if params[:issue].values.all? {|i| !i.empty?}
         new_issue = Issue.create(title: params[:issue][:title], issue_number: params[:issue][:issue_number].to_i, cover_date: params[:issue][:cover_date].to_i, user: current_user)
-
         if params[:file]
           filename = params[:file][:filename]
           file = params[:file][:tempfile]
@@ -40,6 +39,7 @@ class AuthorsController < ApplicationController
 
 
     new_author.save
+    flash[:success] = "Author added"
     redirect "/authors/#{new_author.id}"
   end
 

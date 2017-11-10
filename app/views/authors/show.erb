@@ -9,7 +9,11 @@
       <h3 style="display: block;margin-top: -30px;margin-bottom: -20px" class = "text-center">
         <%=@author.name%> <br>
         <small>Submitted by <strong><%=(current_user && current_user.authors.find_by_id(@author.id)) ? "you" : @author.user.username %></strong></small>
+        <% if current_user && current_user.authors.find_by_id(@author.id) %>
+            <a href="/authors/<%=@author.id%>/edit"><input type="button" value="Edit" class = "btn btn-primary btn-xs"></a>
+        <% end %>
       </h3>
+
     </div>
   </ul>
 </div>
@@ -17,7 +21,7 @@
 <div class="container control-label" style="height: 400px; width: 260px">
   <% if @author.comicbooks.empty? %>
       <h4 class="text-center">No comicbooks yet!<br>
-        <%= current_user ? "Add one <a href=\"/comicbooks/new\">here </a>" : "<a href=\"/login\"> Login </a> or <a href=\"/signup\"> Signup</a> to add a one." %>
+        <%= current_user ? "Add one <a href=\"/comicbooks/new\">here </a>" : "<a href=\"/login\"> Login </a> or <a href=\"/signup\"> signup</a> to add a one." %>
       </h4>
   <%else%>
 
@@ -26,8 +30,9 @@
       <div class="carousel-inner">
           <% @author.comicbooks.each_with_index do |comicbook, index| %>
               <div class="item <%='active' if index == 0%> ">
+                <%rand_issue = comicbook.issues.sample %>
                 <a href="/comicbooks/<%=comicbook.id%>">
-                <% if filename = Dir["public/#{comicbook.id}*"].first %>
+                <% if filename = Dir["public/#{rand_issue ? rand_issue.id : 0}*"].first %>
                     <img src="/<%=filename.split("/")[-1]%>" alt="<%=comicbook.title%>"  style="height: 400px; width: 260px">
                 <% else %>
                     <img src="/nocover.jpg" style="height: 400px; width: 260px">

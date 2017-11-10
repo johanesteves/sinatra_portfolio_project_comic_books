@@ -27,9 +27,9 @@
       float: none;
       margin: 0 auto;
     }
-
   </style>
 </head>
+
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -44,15 +44,14 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li> <a href="/">Home</a></li>
-        <li> <a href="/authors" style="text-decoration:none">Authors</a> </li>
         <li> <a href="/comicbooks" style="text-decoration:none">Comicbooks</a></li>
         <li> <a href="/issues" style="text-decoration:none">Issues</a></li>
+        <li> <a href="/authors" style="text-decoration:none">Authors</a> </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <% if !logged_in? %>
-          <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Signup</a></li>
           <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
         <%else%>
@@ -72,45 +71,33 @@
 <div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <strong>Random Comicbook!    </strong> <br>
+      <strong>Random Issue!</strong> <br>
 
-      <% cb = Comicbook.all.sample %>
-
-      <a href="/comicbooks/<%=cb.id%>">
-          <% if filename = Dir["public/#{cb.id}*"].first %>
-              <img src="/<%=filename.split("/")[-1]%>" alt="<%=cb.title%>" height="200" width="120" border ="5">
+      <% issue = Issue.all.sample %>
+      <a href="/issues/<%=issue.id%>">
+          <% if filename = Dir["public/#{issue.id}*"].first %>
+              <img src="/<%=filename.split("/")[-1]%>" alt="<%=issue.title%>" height="200" width="120" border ="5">
 
           <% else %>
               <img src="/nocover.jpg" height="200" width="120">
           <%end%>
-
       </a>
-
     </div>
-    <div class="col-sm-8 text-left">
 
-      <% if !logged_in? %>
-        <div class="alert alert-info alert-dismissable fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>You are not logged in. </strong> Please <a href="/signup" class="alert-link">sign up</a> or <a href="/login" class="alert-link">login</a> to access the full features.
-      </div>
-      <% else %>
+    <div class="col-sm-8 text-left">
         <% flash.keys.each do |type| %>
           <div class="alert alert-<%= type %> fade in">
             <strong><%= flash[type] %> </strong>
             <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
           </div>
         <% end %>
-      <%end%>
-      <div class="col-sm-12 text-left">
 
-      <%= yield %>
+      <div class="col-sm-12 text-left">
+        <%= yield %>
       </div>
     </div>
   </div>
 </div>
-
-
 </body>
 </html>
 

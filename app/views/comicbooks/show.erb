@@ -1,30 +1,33 @@
 <div class="page-header">
   <ul class="pager">
-  <div class = "previous" style="text-align: left">
-    <li>
-      <a href="/comicbooks">
-        Back
-      </a>
-    </li>
-    <h3 style="display: block;margin-top: -30px;margin-bottom: -20px" class = "text-center">
-      <%=@comicbook.title%> <small> >> <%=@comicbook.issues.size%> issue(s)</small><br>
-      <small>By <a href="/authors/<%=@comicbook.author.id if @comicbook.author %>"><%= @comicbook.author.name if @comicbook.author%></a></small><br>
-      <small><em>Submitted by <strong><%=(current_user && current_user.comicbooks.find_by_id(@comicbook.id)) ? "you" : @comicbook.user.username %></strong>
-      </em></small>
-      <% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
-          <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit" class = "btn btn-primary btn-xs"></a>
-      <% end %>
-
-    </h3>
-
-  </div>
-</ul>
+    <div class = "previous" style="text-align: left">
+      <li>
+        <a href="/comicbooks">
+          Back
+        </a>
+      </li>
+      <h3 style="display: block;margin-top: -30px;margin-bottom: -20px" class = "text-center">
+        <%=@comicbook.title%> <small> >> <%=@comicbook.issues.size%> issue(s)</small><br>
+        <small>By <a href="/authors/<%=@comicbook.author.id if @comicbook.author %>"><%= @comicbook.author.name if @comicbook.author%></a></small><br>
+        <small><em>Submitted by <strong><%=(current_user && current_user.comicbooks.find_by_id(@comicbook.id)) ? "you" : @comicbook.user.username %></strong>
+        </em></small>
+        <% if current_user && current_user.comicbooks.find_by_id(@comicbook.id) %>
+            <a href="/comicbooks/<%=@comicbook.id%>/edit"><input type="button" value="Edit" class = "btn btn-primary btn-xs"></a>
+        <% end %>
+      </h3>
+    </div>
+  </ul>
 </div>
+
 <span class = "text left">
       <%if logged_in? %>
-          <a href="/issues/new"><input type="button" value="Add" class="btn btn-danger btn-md pull-right"  ></a>
+          <a href="/issues/new"><input type="button" value="Add" class="btn btn-danger btn-md pull-right"  ></a> <br><br>
+      <%elsif @comicbook.issues.size == 0%>
+      <h4 class="text-center">
+        <a href="/login"> Login </a> or <a href="/signup"> Signup</a> to add a one.
+      </h4>
       <% end %>
-  </span> <br><br>
+  </span>
 <div class="container fluid col-sm-12" >
 
   <%@comicbook.issues.each do |issue| %>

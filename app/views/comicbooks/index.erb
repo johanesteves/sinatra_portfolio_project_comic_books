@@ -1,3 +1,11 @@
+<% if !logged_in? %>
+    <div class="alert alert-info alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>You are not logged in. </strong> Please <a href="/signup" class="alert-link">sign up</a> or <a href="/login" class="alert-link">login</a> to access the full features.
+    </div>
+<% end %>
+
+
 <div class="page-header">
 <h2 class =text-left>Comicbooks
 
@@ -9,10 +17,11 @@
 
 <div class="container fluid col-sm-12" >
 <%@comicbooks.each do |comicbook| %>
+      <%rand_issue = comicbook.issues.sample%>
       <a href="/comicbooks/<%=comicbook.id%>">
         <div class="col-sm-3">
           <div class = "thumbnail">
-          <% if filename = Dir["public/#{comicbook.id}*"].first %>
+          <% if filename = Dir["public/#{rand_issue ? rand_issue.id : 0}*"].first %>
               <img src="/<%=filename.split("/")[-1]%>" alt="<%=comicbook.title%>"  style="height: 280px; width: 180px">
           <% else %>
               <img src="/nocover.jpg" style="height: 280px; width: 180px">

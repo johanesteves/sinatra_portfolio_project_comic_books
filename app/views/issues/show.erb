@@ -1,16 +1,26 @@
-<a href="/issues">View All</a> <br><br>
-
+<div class="page-header">
+  <ul class="pager">
+    <div class = "previous" style="text-align: left">
+      <li>
+        <a href="/issues">
+          Back
+        </a>
+      </li>
+      <h3 style="display: block;margin-top: -30px;margin-bottom: -20px" class = "text-center">
+        <a href="/comicbooks/<%=@issue.comicbook.id if @issue.comicbook%>"> <%=@issue.comicbook ? @issue.comicbook.title : "No comicbook assigned"  %> </a> #<%=@issue.issue_number.to_s+ " "%> <small> >><%=@issue.title%></small><br>
+        <small><em>Submitted by <strong><%=(current_user && current_user.issues.find_by_id(@issue.id)) ? "you" : @issue.user.username %></strong>
+        </em></small>
+        <% if current_user && current_user.issues.find_by_id(@issue.id) %>
+            <a href="/issues/<%=@issue.id%>/edit"><input type="button" value="Edit" class = "btn btn-primary btn-xs"></a>
+        <% end %>
+      </h3>
+    </div>
+  </ul>
+</div>
+<div style="display: flex; justify-content: center;" class="text-center" >
 <% if @filename.blank? %>
     <img src="/nocover.jpg" height="400" width="260" align="left" hspace=10px>
 <%else%>
     <img src="/<%=@filename%>" alt="<%=@issue.title%>" height="400" width="260" align="left" hspace=10px>
 <%end%>
-
-<h3><%=@issue.title%> </h3>
-
-<%='<b>'+ @issue.comicbook.title+'</b>' + " by " + @issue.comicbook.author.name if @issue.comicbook%><br>
-<i> Submitted by <%=(current_user && current_user.issues.find_by_id(@issue.id)) ? "you" : @issue.user.username%></i>
-
-<% if current_user && current_user.issues.find_by_id(@issue.id) %>
-    <a href="/issues/<%=@issue.id%>/edit"><input type="button" value="Edit"></a>
-<% end %>
+</div>

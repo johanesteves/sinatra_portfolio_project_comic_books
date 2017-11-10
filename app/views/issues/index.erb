@@ -17,8 +17,9 @@
                 <img src="/nocover.jpg" style="height: 280px; width: 180px">
             <%end%>
 
-            <p class="text-center"><strong class = "text-info text-center"><%=issue.title%></strong><br>
-              <em class ="text-muted"><%= issue.comicbook ? (issue.comicbook.title) : "No comicbook assigned"%></em>
+            <p class="text-center"><strong class = "text-info text-center"><%= issue.comicbook ? "#{issue.comicbook.title} # #{issue.issue_number}" : "No comicbook assigned"%></strong><br>
+
+              <em class ="text-muted"><%=issue.title%></em>
             </p>
 
           </div>

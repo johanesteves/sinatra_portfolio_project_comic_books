@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    "Hello World, Weclome to the first page"
+    redirect to '/comicbooks'
   end
 
   helpers do
