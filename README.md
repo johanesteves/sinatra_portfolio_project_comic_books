@@ -10,6 +10,7 @@ You also have the ability to create and login as a user, which are the ones that
 Once cloned, execute: 
 
     $ bundle install
+    $ rake db:migrate
 
 And then execute:
 
